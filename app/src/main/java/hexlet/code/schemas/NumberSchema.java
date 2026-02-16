@@ -1,9 +1,9 @@
 package hexlet.code.schemas;
 
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
     private boolean positiveNum = false;
-    private Integer minRange = null;
-    private Integer maxRange = null;
+    private Integer givenMinRange = null;
+    private Integer givenMaxRange = null;
 
     @Override
     public NumberSchema required() {
@@ -16,8 +16,8 @@ public class NumberSchema extends BaseSchema<Integer> {
         if (positiveNum && value <= 0) {
             return false;
         }
-        if (minRange != null && maxRange != null) {
-            if (!(value >= minRange && value <= maxRange)) {
+        if (givenMinRange != null && givenMaxRange != null) {
+            if (!(value >= givenMinRange && value <= givenMaxRange)) {
                 return false;
             }
         }
@@ -30,8 +30,8 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema range(Integer minRange, Integer maxRange) {
-        this.minRange = minRange;
-        this.maxRange = maxRange;
+        this.givenMinRange = minRange;
+        this.givenMaxRange = maxRange;
         return this;
     }
 }
