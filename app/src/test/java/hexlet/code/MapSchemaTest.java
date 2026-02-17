@@ -95,7 +95,7 @@ class MapSchemaTest {
     void testShapeWithAnotherName() {
         MapSchema schema = validator.map();
 
-        Map<String, BaseSchema<? >> schemas = new HashMap<>();
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
         schema.shape(schemas);
