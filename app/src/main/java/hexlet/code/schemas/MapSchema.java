@@ -6,7 +6,6 @@ public final class MapSchema<T> extends BaseSchema<Map<String, T>> {
 
     public MapSchema required() {
         super.required();
-        addCheck("required", value -> !value.isEmpty());
         return this;
     }
 
@@ -15,19 +14,18 @@ public final class MapSchema<T> extends BaseSchema<Map<String, T>> {
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema<T>> schemas) {
+    public MapSchema<T> shape(Map<String, BaseSchema<T>> schemas) {
         addCheck("shape", map -> {
             for (var entry : schemas.entrySet()) {
                 String key = entry.getKey();
-                BaseSchema schema = entry.getValue();
-                Object fieldValue = map.get(key);
+                BaseSchema<T> schema = entry.getValue();
+                T fieldValue = map.get(key);
                 if (!schema.isValid(fieldValue)) {
                     return false;
                 }
             }
             return true;
         });
-
         return this;
     }
 }
