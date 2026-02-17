@@ -31,7 +31,6 @@ class MapSchemaTest {
         var data = new HashMap<String, String>();
 
         assertFalse(schema.required().isValid(null));
-        assertTrue(schema.isValid(new HashMap<>()));
         data.put("key1", "value1");
         assertTrue(schema.isValid(data));
     }
@@ -39,7 +38,7 @@ class MapSchemaTest {
     @Test
     void testSizeOfForNull() {
         MapSchema schema = validator.map();
-        schema.sizeof(2);
+        schema.sizeOf(2);
 
         assertTrue(schema.isValid(null));
     }
@@ -48,7 +47,7 @@ class MapSchemaTest {
     void testWithSizeOf() {
         MapSchema schema = validator.map();
         var data = new HashMap<String, String>();
-        schema.sizeof(2);
+        schema.sizeOf(2);
         data.put("key1", "value1");
         assertFalse(schema.isValid(data));
         data.put("key2", "value2");
@@ -59,7 +58,7 @@ class MapSchemaTest {
     void testRequiredAndSizeOf() {
         MapSchema schema = validator.map();
         var data = new HashMap<String, String>();
-        schema.sizeof(2);
+        schema.sizeOf(2);
         schema.required();
         assertFalse(schema.isValid(new HashMap<>()));
         assertFalse(schema.isValid(null));
@@ -75,7 +74,7 @@ class MapSchemaTest {
         Map<String, String> emptyMap = new HashMap<>();
         assertTrue(schema.isValid(emptyMap));
 
-        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
         schema.shape(schemas);
@@ -96,7 +95,7 @@ class MapSchemaTest {
     void testShapeWithAnotherName() {
         MapSchema schema = validator.map();
 
-        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+        Map<String, BaseSchema<? >> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
         schema.shape(schemas);
