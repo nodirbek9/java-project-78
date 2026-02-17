@@ -38,7 +38,7 @@ class MapSchemaTest {
     @Test
     void testSizeOfForNull() {
         MapSchema schema = validator.map();
-        schema.sizeOf(2);
+        schema.sizeof(2);
 
         assertTrue(schema.isValid(null));
     }
@@ -47,7 +47,7 @@ class MapSchemaTest {
     void testWithSizeOf() {
         MapSchema schema = validator.map();
         var data = new HashMap<String, String>();
-        schema.sizeOf(2);
+        schema.sizeof(2);
         data.put("key1", "value1");
         assertFalse(schema.isValid(data));
         data.put("key2", "value2");
@@ -58,7 +58,7 @@ class MapSchemaTest {
     void testRequiredAndSizeOf() {
         MapSchema schema = validator.map();
         var data = new HashMap<String, String>();
-        schema.sizeOf(2);
+        schema.sizeof(2);
         schema.required();
         assertFalse(schema.isValid(new HashMap<>()));
         assertFalse(schema.isValid(null));
